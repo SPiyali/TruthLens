@@ -1,80 +1,173 @@
-document.addEventListener('DOMContentLoaded', function() {
+// document.addEventListener('DOMContentLoaded', function() {
+//   const analyzeBtn = document.getElementById('analyzeBtn');
+//   const stars = document.querySelectorAll('.star');
+  
+//   // Simple list of suspicious terms
+//   const suspiciousTerms = [
+//     'fake', 'hoax', 'conspiracy', 'cover-up', 'suppressed', 
+//     'they don\'t want you to know', 'mainstream media', 
+//     'wake up', 'sheeple', '100% proven'
+//   ];
+  
+//   analyzeBtn.addEventListener('click', function() {
+//     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+//       chrome.tabs.sendMessage(tabs[0].id, {action: "analyze"}, function(response) {
+//         if (response) {
+//           updateResults(response.text);
+//         }
+//       });
+//     });
+//   });
+  
+//   function updateResults(text) {
+//     const credibilityScore = Math.floor(Math.random() * 60) + 40; // Mock score
+//     const foundTerms = suspiciousTerms.filter(term => 
+//       text.toLowerCase().includes(term.toLowerCase())
+//     );
+    
+//     document.getElementById('credibilityScore').textContent = 
+//       `Credibility: ${credibilityScore}%`;
+//     document.getElementById('biasedTerms').textContent = 
+//       `Biased terms found: ${foundTerms.length}`;
+    
+//     // Highlight terms on page
+//     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+//       chrome.tabs.sendMessage(tabs[0].id, {
+//         action: "highlight",
+//         terms: foundTerms
+//       });
+//     });
+//   }
+  
+//   // Star rating system
+//   stars.forEach(star => {
+//     star.addEventListener('click', function() {
+//       const rating = this.getAttribute('data-rating');
+//       stars.forEach(s => s.classList.remove('active'));
+//       this.classList.add('active');
+      
+//       // Save rating (simplified - would normally use a backend)
+//     //   const domain = new URL(window.location.href).hostname;
+//     chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+//   const url = new URL(tabs[0].url);
+//   const domain = url.hostname;
+
+//   const ratings = JSON.parse(localStorage.getItem('ratings') || '{}');
+//   ratings[domain] = ratings[domain] || { total: 0, count: 0 };
+//   ratings[domain].total += parseInt(rating);
+//   ratings[domain].count += 1;
+//   localStorage.setItem('ratings', JSON.stringify(ratings));
+//   updateCommunityRating(domain);
+// });
+
+//       const ratings = JSON.parse(localStorage.getItem('ratings') || '{}');
+//       ratings[domain] = ratings[domain] || {total: 0, count: 0};
+//       ratings[domain].total += parseInt(rating);
+//       ratings[domain].count += 1;
+//       localStorage.setItem('ratings', JSON.stringify(ratings));
+      
+//       updateCommunityRating(domain);
+//     });
+//   });
+  
+//   function updateCommunityRating(domain) {
+//     const ratings = JSON.parse(localStorage.getItem('ratings') || '{}');
+//     if (ratings[domain]) {
+//       const avg = (ratings[domain].total / ratings[domain].count).toFixed(1);
+//       document.getElementById('communityRating').textContent = 
+//         `Community rating: ${avg}/5 (${ratings[domain].count} votes)`;
+//     }
+//   }
+// });
+
+
+
+document.addEventListener('DOMContentLoaded', function () {
   const analyzeBtn = document.getElementById('analyzeBtn');
   const stars = document.querySelectorAll('.star');
-  
-  // Simple list of suspicious terms
+
+  // List of suspicious words
   const suspiciousTerms = [
-    'fake', 'hoax', 'conspiracy', 'cover-up', 'suppressed', 
-    'they don\'t want you to know', 'mainstream media', 
+    'fake', 'hoax', 'conspiracy', 'cover-up', 'suppressed',
+    'they don\'t want you to know', 'mainstream media',
     'wake up', 'sheeple', '100% proven'
   ];
-  
-  analyzeBtn.addEventListener('click', function() {
-    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-      chrome.tabs.sendMessage(tabs[0].id, {action: "analyze"}, function(response) {
+
+  // Analyze button logic
+  analyzeBtn.addEventListener('click', function () {
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+      chrome.tabs.sendMessage(tabs[0].id, { action: "analyze" }, function (response) {
         if (response) {
           updateResults(response.text);
         }
       });
     });
   });
-  
+
+  // Update credibility score & highlight terms
   function updateResults(text) {
     const credibilityScore = Math.floor(Math.random() * 60) + 40; // Mock score
-    const foundTerms = suspiciousTerms.filter(term => 
+    const foundTerms = suspiciousTerms.filter(term =>
       text.toLowerCase().includes(term.toLowerCase())
     );
-    
-    document.getElementById('credibilityScore').textContent = 
+
+    document.getElementById('credibilityScore').textContent =
       `Credibility: ${credibilityScore}%`;
-    document.getElementById('biasedTerms').textContent = 
+    document.getElementById('biasedTerms').textContent =
       `Biased terms found: ${foundTerms.length}`;
-    
-    // Highlight terms on page
-    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
       chrome.tabs.sendMessage(tabs[0].id, {
         action: "highlight",
         terms: foundTerms
       });
     });
   }
-  
-  // Star rating system
+
+  // Star rating click handling
   stars.forEach(star => {
-    star.addEventListener('click', function() {
-      const rating = this.getAttribute('data-rating');
-      stars.forEach(s => s.classList.remove('active'));
-      this.classList.add('active');
-      
-      // Save rating (simplified - would normally use a backend)
-    //   const domain = new URL(window.location.href).hostname;
-    chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
-  const url = new URL(tabs[0].url);
-  const domain = url.hostname;
+    star.addEventListener('click', function () {
+      const rating = parseInt(this.getAttribute('data-rating'));
 
-  const ratings = JSON.parse(localStorage.getItem('ratings') || '{}');
-  ratings[domain] = ratings[domain] || { total: 0, count: 0 };
-  ratings[domain].total += parseInt(rating);
-  ratings[domain].count += 1;
-  localStorage.setItem('ratings', JSON.stringify(ratings));
-  updateCommunityRating(domain);
-});
+      // Highlight selected stars
+      stars.forEach(s => {
+        s.classList.remove('active');
+        if (parseInt(s.getAttribute('data-rating')) <= rating) {
+          s.classList.add('active');
+        }
+      });
 
-      const ratings = JSON.parse(localStorage.getItem('ratings') || '{}');
-      ratings[domain] = ratings[domain] || {total: 0, count: 0};
-      ratings[domain].total += parseInt(rating);
-      ratings[domain].count += 1;
-      localStorage.setItem('ratings', JSON.stringify(ratings));
-      
-      updateCommunityRating(domain);
+      // Get domain and update localStorage
+      chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+        const url = new URL(tabs[0].url);
+        const domain = url.hostname;
+
+        const ratings = JSON.parse(localStorage.getItem('ratings') || '{}');
+        ratings[domain] = ratings[domain] || { total: 0, count: 0 };
+
+        ratings[domain].total += rating;
+        ratings[domain].count += 1;
+
+        localStorage.setItem('ratings', JSON.stringify(ratings));
+
+        updateCommunityRating(domain);
+      });
     });
   });
-  
+
+  // Show community rating if already exists
+  chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+    const url = new URL(tabs[0].url);
+    const domain = url.hostname;
+    updateCommunityRating(domain);
+  });
+
+  // Display average rating and vote count
   function updateCommunityRating(domain) {
     const ratings = JSON.parse(localStorage.getItem('ratings') || '{}');
     if (ratings[domain]) {
       const avg = (ratings[domain].total / ratings[domain].count).toFixed(1);
-      document.getElementById('communityRating').textContent = 
+      document.getElementById('communityRating').textContent =
         `Community rating: ${avg}/5 (${ratings[domain].count} votes)`;
     }
   }

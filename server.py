@@ -3,7 +3,7 @@ import re
 from textblob import TextBlob
 
 app = Flask(__name__)
-https://github.com/SPiyali/TruthLens
+# https://github.com/SPiyali/TruthLens
 # Simple NLP analysis
 @app.route('/analyze', methods=['POST'])
 def analyze():

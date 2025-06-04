@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
   <link rel="stylesheet" href="popup.css">
@@ -25,5 +25,85 @@
     </div>
   </div>
   <script src="popup.js"></script>
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>TruthLens - Fake News Detector</title>
+  <link rel="stylesheet" href="popup.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    .stars {
+      font-size: 20px;
+      color: gold;
+      cursor: pointer;
+    }
+    .star:hover,
+    .star.hovered,
+    .star.selected {
+      color: orange;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Fake News Detector</h1>
+
+    <button id="analyzeBtn">Analyze Current Page</button>
+
+    <div id="results">
+      <h3>Analysis Results:</h3>
+      <div id="credibilityScore">Credibility: -</div>
+      <div id="biasedTerms">Biased terms found: 0</div>
+      <div id="communityRating">Community rating: -/5 (0 votes)</div>
+    </div>
+
+    <div class="vote-section">
+      <p>Rate this source:</p>
+      <div class="stars" id="starRating">
+        <span class="star" data-rating="1">&#9733;</span>
+        <span class="star" data-rating="2">&#9733;</span>
+        <span class="star" data-rating="3">&#9733;</span>
+        <span class="star" data-rating="4">&#9733;</span>
+        <span class="star" data-rating="5">&#9733;</span>
+      </div>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+  <script>
+    // Interactive star rating (basic JS)
+    const stars = document.querySelectorAll('.star');
+    stars.forEach(star => {
+      star.addEventListener('click', () => {
+        const rating = star.dataset.rating;
+        stars.forEach(s => s.classList.remove('selected'));
+        for (let i = 0; i < rating; i++) {
+          stars[i].classList.add('selected');
+        }
+        // Optional: send rating to backend
+        console.log(`User rated: ${rating}/5`);
+      });
+
+      // Optional hover effect
+      star.addEventListener('mouseover', () => {
+        const hoverRating = star.dataset.rating;
+        stars.forEach(s => s.classList.remove('hovered'));
+        for (let i = 0; i < hoverRating; i++) {
+          stars[i].classList.add('hovered');
+        }
+      });
+
+      star.addEventListener('mouseout', () => {
+        stars.forEach(s => s.classList.remove('hovered'));
+      });
+    });
+  </script>
 </body>
 </html>

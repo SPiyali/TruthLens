@@ -1,4 +1,4 @@
-body {
+/* body {
   width: 300px;
   padding: 10px;
   font-family: Arial, sans-serif;
@@ -37,4 +37,98 @@ body {
   margin-top: 15px;
   padding-top: 10px;
   border-top: 1px solid #eee;
+} */
+
+
+
+
+body {
+  width: 320px;
+  margin: 0;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f9f9f9;
+  color: #333;
+  box-sizing: border-box;
+}
+
+.container {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
+}
+
+h1 {
+  font-size: 20px;
+  color: #2c3e50;
+  margin-bottom: 16px;
+}
+
+#analyzeBtn {
+  padding: 10px 18px;
+  font-size: 15px;
+  background: linear-gradient(to right, #4CAF50, #45a049);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+#analyzeBtn:hover {
+  background: linear-gradient(to right, #45a049, #4CAF50);
+}
+
+#results {
+  text-align: left;
+  margin: 20px 0;
+  background: #f3f3f3;
+  padding: 10px;
+  border-radius: 6px;
+  box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
+}
+
+#results h3 {
+  margin-top: 0;
+  font-size: 16px;
+  color: #34495e;
+}
+
+#credibilityScore, #biasedTerms, #communityRating {
+  margin: 8px 0;
+  font-weight: bold;
+}
+
+.vote-section {
+  margin-top: 20px;
+  padding-top: 12px;
+  border-top: 1px solid #ddd;
+}
+
+.vote-section p {
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #555;
+}
+
+.stars {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+
+.star {
+  font-size: 26px;
+  color: #ccc;
+  cursor: pointer;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.star:hover,
+.star.active {
+  color: #f1c40f;
+  transform: scale(1.2);
 }
