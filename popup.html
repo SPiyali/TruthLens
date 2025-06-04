@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Fake News Detector</h1>
+    <button id="analyzeBtn">Analyze Current Page</button>
+    <div id="results">
+      <h3>Analysis Results:</h3>
+      <div id="credibilityScore">Credibility: -</div>
+      <div id="biasedTerms">Biased terms found: 0</div>
+      <div id="communityRating">Community rating: -/5 (0 votes)</div>
+    </div>
+    <div class="vote-section">
+      <p>Rate this source:</p>
+      <div class="stars">
+        <span class="star" data-rating="1">★</span>
+        <span class="star" data-rating="2">★</span>
+        <span class="star" data-rating="3">★</span>
+        <span class="star" data-rating="4">★</span>
+        <span class="star" data-rating="5">★</span>
+      </div>
+    </div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
