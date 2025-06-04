@@ -3,6 +3,7 @@
 TruthLens is a Chrome Extension that uses simple NLP techniques to detect potentially **fake or biased news content**. It allows users to analyze online articles, highlight suspicious words, and take part in crowd-sourced truth verification.
 
 ---
+![Popup UI](https://raw.githubusercontent.com/SPiyali/TruthLens/main/icon.png) ✅
 
 ## 🚀 Features
 
