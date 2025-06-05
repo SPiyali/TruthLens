@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.env
+
+# Node (if using for frontend builds or npm)
+node_modules/
+
+# Chrome Extension build artifacts
+*.zip
+*.crx
+
+# VS Code / JetBrains IDEs
+.vscode/
+.idea/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Logs and temporary files
+*.log
+*.tmp
+
+# SQLite or DB files (optional)
+*.sqlite3
+*.db
